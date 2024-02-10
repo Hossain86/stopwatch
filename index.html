@@ -1,0 +1,129 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stop Watch</title>
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <style>
+    body{
+      margin: 0;
+      background-color: antiquewhite;
+    }
+    .all{
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 0.8fr 0.6fr;
+    }
+    .all-button{
+      display: flex;
+      justify-content: center;
+      padding: 40px;
+      gap: 30px;
+      margin-top: 30px;
+      
+    }
+    button{
+      height: 40px;
+      width: 140px;
+      background-color: black;
+      color: white;
+      font-size: 20px;
+      font-family: Roboto;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 10px 8px 12px 1px rgba(0,0,0,0.3);
+    }
+    button:hover{
+      opacity: 0.9;
+    }
+    button:active{
+      opacity: 0.6;
+    }
+    p{
+      font-size: 50px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .text {
+    margin-top: 20px;
+    display: flex;
+    padding: 20px;
+    gap: 30px;
+    justify-content: center;
+    background-color: aquamarine;
+  }
+  </style>
+</head>
+<body>
+  <div class="all">
+    <div class="all-button">
+      <button onclick="startTimer()" class="js-start-button">Start</button>
+      <button onclick="stopTimer()" class="js-stop-button">Stop</button>
+      <button onclick="resetTimer()" class="js-reset-button">Reset</button>
+    </div>
+    <div class="text">
+      <p class="js-hours">0 h</p>
+      <p>:</p>
+      <p class="js-minutes">0 min</p>
+      <p>:</p>
+      <p class="js-seconds">0 s</p>
+    </div>
+  </div>
+  
+
+  <script>
+    let condition;
+    let intervalId;
+    let secondsElement=document.querySelector('.js-seconds');
+    let minutesElement=document.querySelector('.js-minutes');
+    let hoursElement=document.querySelector('.js-hours');
+    let seconds=0;
+    let minutes=0;
+    let hours=0;
+    function startTimer(){
+      condition=true;
+
+        intervalId= setInterval(function(){
+        seconds++;
+        if(seconds===60){
+          minutes++;
+          seconds=0;
+        }
+        if(minutes===60){
+          hours++;
+          minutes=0;
+        }
+                
+        if(seconds>=0){
+          secondsElement.innerHTML=seconds+' s';
+        }
+        if(minutes>=1){
+          minutesElement.innerHTML=minutes+' min';
+          
+        }
+        if(hours>=1){
+          hoursElement.innerHTML=hours+' h';
+          
+        }
+        
+      },1000)
+      
+    }
+    function stopTimer(){
+      condition=false;
+      clearInterval(intervalId)
+    }
+    function resetTimer(){
+      seconds=0;
+      minutes=0;
+      hours=0;
+      secondsElement.innerHTML=seconds+' s';
+      minutesElement.innerHTML=minutes+' min';
+      hoursElement.innerHTML=hours+' h';
+      condition=false;
+      clearInterval(intervalId);
+    }
+  </script>
+</body>
+</html>
